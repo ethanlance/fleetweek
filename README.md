@@ -42,5 +42,5 @@ lib/content.ts  # Markdown/JSON loaders
 
 ## Deploy
 
-Vercel project `powarz2`, custom domain fleetweek.dev.
+Vercel project `fleetweek`, custom domain fleetweek.dev.
 
