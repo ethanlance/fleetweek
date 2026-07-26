@@ -1,7 +1,13 @@
 {
-  "updatedAt": "2026-07-26T05:46:19Z",
+  "updatedAt": "2026-07-26T06:21:51Z",
   "monthlyCostUsd": null,
   "runs": [
+    {
+      "job": "webmaster",
+      "startedAt": "2026-07-26T06:21:51Z",
+      "status": "error",
+      "note": "repo synced;build ok (4s);site returned 000000"
+    },
     {
       "job": "webmaster",
       "startedAt": "2026-07-26T05:46:19Z",
