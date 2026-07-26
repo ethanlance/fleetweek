@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 
+interface Source {
+  title: string;
+  url: string | null;
+}
+
 export function AskForm() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<string | null>(null);
+  const [sources, setSources] = useState<Source[]>([]);
   const [loading, setLoading] = useState(false);
 
   async function submit(e: React.FormEvent) {
@@ -12,6 +18,7 @@ export function AskForm() {
     if (!question.trim() || loading) return;
     setLoading(true);
     setAnswer(null);
+    setSources([]);
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
@@ -20,6 +27,7 @@ export function AskForm() {
       });
       const data = await res.json();
       setAnswer(data.answer ?? "Something went wrong.");
+      setSources(Array.isArray(data.sources) ? data.sources : []);
     } catch {
       setAnswer("Something went wrong. Try again.");
     } finally {
@@ -45,8 +53,29 @@ export function AskForm() {
         </button>
       </form>
       {answer && (
-        <div className="prose-powarz rounded-lg border border-border-subtle bg-surface p-6 text-[14px]">
-          <p>{answer}</p>
+        <div className="rounded-lg border border-border-subtle bg-surface p-6 text-[14px]">
+          {answer.split(/\n\n+/).map((para, i) => (
+            <p key={i} className="mb-3 leading-relaxed text-muted last:mb-0">
+              {para}
+            </p>
+          ))}
+          {sources.length > 0 && (
+            <div className="mt-4 border-t border-border-subtle pt-3 font-mono text-[11px] text-faint">
+              sources:{" "}
+              {sources.map((s, i) => (
+                <span key={i}>
+                  {i > 0 && " · "}
+                  {s.url ? (
+                    <a href={s.url} className="text-muted hover:text-accent">
+                      {s.title}
+                    </a>
+                  ) : (
+                    s.title
+                  )}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
