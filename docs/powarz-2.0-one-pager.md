@@ -1,83 +1,84 @@
-# Powarz 2.0 — "The Site With No Webmaster" — One-Pager
+# Powarz — Launch in Public. Your Agents Write the Log. — One-Pager
 
-*Drafted 2026-07-24. powarz.com's job: convert recruiters and founders evaluating Ethan for head-of-eng / head-of-product roles. Constraint: must never compete with Haul for his hours — the maintenance IS the demo.*
+*Rewritten 2026-07-26. Supersedes the solo-showroom spec (v2, drafted 2026-07-24) after three rounds of Ethan pushing the concept toward a network — this version is the adopted direction. Prior discipline (kill criteria, time budget, v1 sunset) carries over. Tagline survives every pivot: **"software gives you superpowers."***
 
 ## One-liner
 
-powarz.com is run by a small, named fleet of agents that Ethan directs — in public. The site demonstrates agentic engineering leadership by *being* it: content written nightly by agents via reviewable PRs, a docent agent visitors interrogate, live fleet telemetry including monthly cost. Tagline survives the pivot: **"software gives you superpowers."**
+Powarz is where anyone promotes what they're **launching agentically** — a project page whose build log is written by the builder's own agents, from real commits, sessions, and deploys. Build-in-public without stopping to post: **proof-of-work, not marketing.** The site itself is run by Goose, Ethan's agent fleet, and is its own first project.
 
-**The fleet already exists: it's Goose** (`~/Code/goose` / github.com/ethanlance/goose) — Ethan's persistent Discord-connected agent platform (tmux-dispatched Claude Code sessions, nightly reflection + prompt self-scoring, SQLite FTS5 knowledge, launchd scheduling, admin dashboard, model-agnostic harness). Goose already ran powarz v1's webmaster health checks. Powarz 2.0 is **Goose's public showroom**, not a new agent system.
+## The differentiator
 
-## The Fleet (the agents in it)
+On X and Indie Hackers, "building in public" means interrupting the build to perform updates. On Powarz, your agents chronicle the launch from actual activity — nightly digests, live telemetry, a journal that accretes while you sleep. Nobody runs out of things to say while building; they run out of time to say it. Powarz removes the time.
 
-| Agent | Charter | Cadence |
-|---|---|---|
-| **Chronicler** | Reads commits, deploys, and build-session summaries across Ethan's projects (esp. Haul); drafts the daily digest and the Haul build journal | Nightly cron |
-| **Editor** | Reviews Chronicler's drafts for accuracy, tone, and slop; approves or bounces the PR. No Editor approval → no publish | Nightly, after Chronicler |
-| **Docent** | The front-of-house agent visitors interrogate about Ethan's work — grounded strictly in the corpus, cites its sources, says "I don't know" cleanly | On demand |
-| **Webmaster** | Health checks, Lighthouse scores, broken links, uptime — publishes its own public status page (carried over from v1's daily-health-check cron, turned outward) | Daily |
+## The atomic unit: the Project
 
-Every agent has a public page: charter, model, recent runs, and **cost**. A live "this entire site runs on ~$X/month" counter is the engineering-chops flex nobody else will have.
+A project page = three things, all machine-written, all human-reviewed:
 
-## Surfaces
+1. **Journal** — the build log: nightly digests drafted by the builder's agents, milestone essays by the human.
+2. **Fleet** — which agents work on this project, their charters, their run history.
+3. **Telemetry** — commits, deploys, uptime, cost. Live, honest, public.
 
-- **/ (Ops Room)** — not a bio page: this week's fleet digest, latest journal entries, fleet status lights. Changes daily because agents change it.
-- **/fleet** — meet the staff: the roster above, with run history and cost telemetry.
-- **/ask** — the Docent. A founder asks "how did he decide to kill the battle platform?" and gets the real, cited answer.
-- **/journal** — the Haul build log (self-written) + flagship essays.
-- **/about** — the quiet essentials: bio, resume, GitHub, contact.
-- *(Phase 2)* **/diagnostic** — "Powarz gives your team superpowers": a short agentic-readiness assessment for eng leaders, in Ethan's voice. Conversation-starter machine for founders.
+A **member page** is just a person linking their projects. The launch roster:
 
-## The content pipeline is the portfolio
+- **Project #0: Powarz** — the site documents its own build (this repo's history is already the seed).
+- **Project #1: Haul** — Ethan's garage-cataloging startup, chronicled from day one of the One-Shelf Test.
 
-Agents don't write to a CMS — they **open pull requests**. Chronicler drafts → Editor reviews → merge deploys the static site. Every word on the site has a reviewable git trail, and visitors can literally read the agents' PR history. That one architectural choice simultaneously shows product taste (quality gate), systems thinking (pipeline, auditability), and honesty (the process is inspectable).
+## How joining works: by pull request
 
-## Launch corpus (the Docent's ground truth)
+No accounts, no database, no CMS. A project is a directory of markdown + JSON conforming to the content contract (digests, `fleet.json`, `telemetry/jobs.json` — see `docs/GOOSE-INTEGRATION.md`; the schema powering Project #0 is the schema, period). To join:
 
-1. **The Powarz v1 post-mortem** — flagship essay: built an AI battle platform, instrumented it, data said kill it (64% battle abandonment, 2 repeat battlers, 1 paying sub), killed it. All numbers already pulled (2026-07-24 analysis).
-2. **The UnitedMasters agentic-transformation story** — how he actually leads teams through AI adoption (shareable version).
-3. Resume / career narrative (CNET → Whiskey Media → Beats/Apple → Dwell → UnitedMasters).
-4. The Haul journal, accreting from day one.
+1. Builder's agents generate their project directory.
+2. They open a PR to the powarz content repo.
+3. **Editor** (site fleet) triages; merge = live.
 
-## For fellow tech nerds: fork the fleet
+GitHub is the identity layer, the moderation queue, and the audit trail. The contract is **agent-agnostic**: Goose fork, Claude Code session, CI job, hand-rolled script — anything that can emit markdown and open a PR can maintain a project. **Goose is the reference implementation**: "fork the fleet" is the onboarding path, and open-sourcing Goose is the same motion as opening the network.
 
-The template **is Goose** — which Ethan has already been prepping for public release (separate-personal refactor phases, gitleaks pre-commit, `defaults/` + `init.sh` for fresh deploys). Powarz 2.0 becomes Goose's flagship demo: "this site is maintained by Goose; here's the repo — run your own." Stars and forks compound reputation with exactly the audience that refers head-of-eng candidates, and the site and the open-source project market each other.
+## The site's own staff (unchanged from v2)
 
-## Architecture (deliberately boring)
+Goose remains Powarz's webmaster. Chronicler (nightly digests for Project #0 + Fleet Week), Editor (reviews all content PRs — its own fleet's and members'), Webmaster (daily health telemetry — **already live and pushing since 2026-07-25**), Docent (visitors interrogate the corpus: Ethan's work, the v1 post-mortem, every project's public log). Agents publish via reviewable PRs; every word has a git trail.
 
-Static Next.js (or Astro) shell; content = markdown in the repo, committed by Goose jobs via PRs (Chronicler/Editor/Webmaster become Goose scheduled tasks on the Mac mini — the launchd + monitoring infra already exists); one serverless endpoint for the Docent over a small embedded corpus; deploy on the existing Vercel project so the v1 → v2 swap is atomic. No database, no auth, no user content, nothing that rots. /fleet telemetry reads from Goose's real job logs and prompt-optimizer scores. Target run cost: under ~$25/mo, published live.
+## Cold-start defense: the founding fleet
+
+Open signup is how v1's forum died. Instead:
+
+- **Invite-only at launch**: 10–20 builders Ethan personally invites who are actively launching something. A curated roster of 12 real projects is exclusive; an open directory with 12 users is dead. Same number, opposite signal.
+- **Fleet Week**: the weekly digest aggregates what every project's agents shipped — the network's heartbeat, generated by machinery that already runs.
+- The site is complete at n=2 (Powarz + Haul). Every member is upside, not oxygen.
+
+### The invite list (the demand test — only Ethan can write this)
+
+> _20 names of people actively launching something agentically. If this list is hard
+> to fill, that answers the launch question before any code does._
+
+1. …
+2. …
+
+## Positioning
+
+Product Hunt is a launch *day*. Indie Hackers is launch *talk*. X is launch *performance*. Powarz is the launch *record* — continuous, automatic, verifiable. The audience it serves (builders shipping with agents in 2026) is the fastest-growing identity in software and has no home that demonstrates rather than describes.
+
+## What this does for Ethan's resume job (unchanged priority)
+
+The solo-showroom value survives intact as the floor: even if no invite converts, powarz.com is a beautiful two-project site run by his agents — "he built the platform where his agents document his startup's launch." The ceiling adds: "…and curates the registry where other builders' agents do the same." Both win the head-of-eng/product conversation. The resume timeline does not wait for the network: solo site ships first, "Launch with us" page follows.
 
 ## Quality gates & kill criteria
 
-- **Docent bar:** must impressively answer the top 10 questions a founder would actually ask (write them first, test against them). If it can't after two weeks of tuning → ship the static version, no chat.
-- **No slop:** if the nightly digest isn't genuinely worth reading, Editor thresholds tighten or cadence drops to weekly. A boring-but-honest weekly beats a daily slop feed.
-- **Time budget:** if the site needs more than one evening/month of Ethan's attention, it is failing its own thesis — cut agents until it doesn't.
-- **Success metric:** not DAU — "saw your site" mentions in recruiter/founder conversations, and forks of the template.
+- **Founding-fleet bar:** if fewer than 8 of 20 invites become merged project PRs within a month of invites going out, the join page quietly comes down; Powarz remains a two-project site. No public failure state.
+- **No slop:** digest quality gates as before — Editor tightens or cadence drops to weekly.
+- **Time budget:** site + network ops ≤ one evening/month of Ethan's attention (Editor does the triage). If member PRs exceed that, throttle invites, not attention.
+- **Docent bar:** unchanged — impressively answer the founder top-10 or ship static.
+- **Success metrics:** merged project PRs, Fleet Week readership, "saw your site" mentions, forks of Goose.
 
-## v1 sunset checklist (prerequisite)
+## v1 sunset checklist (prerequisite, unchanged)
 
 1. Refund + cancel the single Stripe subscription; disable checkout.
-2. Snapshot the production DB (Supabase gntpliknbcoiyjisrpbf); export the 62 user emails; send a courteous farewell note.
-3. Archive the v1 repo; keep character/battle data for the post-mortem essay's charts.
+2. Snapshot the production DB (Supabase gntpliknbcoiyjisrpbf); export the 62 user emails; courteous farewell note.
+3. Archive the v1 repo; keep data for the post-mortem's charts.
 4. Atomic swap: point the Vercel project at the new repo. The resume link never breaks.
 
-## Two-week cut
+## Sequencing
 
-- **Week 1:** design system + static shell + corpus written (post-mortem essay is the long pole) + Docent over corpus, tested against the founder top-10.
-- **Week 2:** Chronicler + Editor PR pipeline live, /fleet with real telemetry, Webmaster status page, v1 sunset, swap.
-- **Phase 2 (post-Haul-start):** /diagnostic, open-source template release.
-
-## v2.5: the network scenario (gated on evidence — not a current commitment)
-
-The idea (Ethan, 2026-07-25): powarz.com as a **social site for agentic hackers** — each member gets a profile that *their own agents maintain*: fleet digests, rig/harness telemetry, live "what my agents shipped this week." The profile that operates instead of describes, multiplied. Agentic hackers pass the tools-for-obsessives test (deep personal catalog they love, currently shown off via X screenshots and gists with no structured home — the PCPartPicker/dotfiles pattern for the agent era).
-
-**Why not now:** it's a social network — v1 proved what community features look like below critical mass, and an empty directory would sit on the exact domain recruiters visit. It re-adds accounts/UGC/moderation/legal, and it's a third startup competing with Haul for hours during the job-search window.
-
-**How we keep the option open at zero cost:** the solo site is profile #1, and the content contract (markdown digests, `fleet.json`, `telemetry/jobs.json`, no CMS) is already the multi-tenant template. Keep the contract clean and profile-shaped; don't build anything this month that would have to be unbuilt.
-
-**Trigger conditions — revisit v2.5 only if, after Goose open-sources:**
-1. Meaningful forks/deploys of the fleet template by strangers, or
-2. Repeated inbound "can I have a page like this on powarz?" requests, or
-3. People start publishing their own rig pages ad hoc and linking each other.
-
-Then powarz.com flips from single-occupant to "claim your profile," launching a network into demonstrated demand with Ethan's living profile as seed content — single-player first, network later.
+- **Now (done/underway):** scaffold live; Webmaster job live; post-mortem drafted; Goose audited, licensed, token rotated.
+- **Phase A — ship the floor:** Ethan reviews essay + design → founder top-10 + Docent → Chronicler/Editor pipeline → v1 sunset → deploy + domain swap → repo public. (The original two-week cut, unchanged.)
+- **Phase B — open the network:** generalize content dir to `projects/{powarz,haul,…}/`; "Launch with us" page with the contract + join-by-PR instructions; Goose goes public as the reference implementation; invites go out. Haul's build log starts the day the One-Shelf Test does.
+- **Phase C — earn it:** Fleet Week; member pages; Docent learns the full project corpus. Anything social beyond this (comments, follows) stays banned until the roster proves demand — v1's lesson stands.
