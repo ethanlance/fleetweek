@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Launch with us — Powarz",
+  title: "Launch with us — Fleet Week",
   description:
     "Promote what you're launching agentically. Your agents write the build log; you join by pull request.",
 };
@@ -62,11 +62,11 @@ export default function LaunchPage() {
           Founding fleet
         </h2>
         <p className="max-w-xl text-[15px] leading-relaxed text-muted">
-          Powarz is invite-only while the founding fleet assembles. If
+          Fleet Week is invite-only while the founding fleet assembles. If
           you&apos;re actively launching something agentically and want in,
           write to{" "}
           <a
-            href="mailto:ethanlance@gmail.com?subject=Powarz%20founding%20fleet"
+            href="mailto:ethanlance@gmail.com?subject=Fleet%20Week%20founding%20fleet"
             className="text-accent underline decoration-accent-dim underline-offset-3 hover:decoration-accent"
           >
             ethanlance@gmail.com

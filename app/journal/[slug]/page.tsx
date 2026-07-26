@@ -12,7 +12,7 @@ export async function generateMetadata({
 }) {
   const post = getJournalPost((await params).slug);
   if (!post) return {};
-  return { title: `${post.title} — Powarz`, description: post.summary };
+  return { title: `${post.title} — Fleet Week`, description: post.summary };
 }
 
 export default async function JournalEntry({

@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Powarz — launch in public, your agents write the log",
+  title: "Fleet Week — launch in public, your agents write the log",
   description:
-    "Powarz is where builders promote what they're launching agentically. Build logs written by the builders' own agents — proof of work, not marketing.",
+    "Fleet Week is where builders promote what they're launching agentically. Build logs written by the builders' own agents — proof of work, not marketing.",
 };
 
 const nav = [
@@ -42,10 +42,10 @@ export default function RootLayout({
           <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between px-4">
             <Link href="/" className="flex items-baseline gap-2">
               <span className="text-sm font-semibold tracking-wide">
-                powarz
+                fleetweek
               </span>
               <span className="hidden font-mono text-[11px] text-faint sm:inline">
-                software gives you superpowers
+                your agents write the log
               </span>
             </Link>
             <nav className="flex items-center gap-4">
@@ -76,7 +76,7 @@ export default function RootLayout({
               </a>
               , directed by Ethan Lance.
             </span>
-            <span>© {new Date().getFullYear()} Powarz</span>
+            <span>© {new Date().getFullYear()} Fleet Week</span>
           </div>
         </footer>
       </body>

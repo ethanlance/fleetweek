@@ -22,7 +22,7 @@ export async function generateMetadata({
   const project = getProject((await params).slug);
   if (!project) return {};
   return {
-    title: `${project.name} — Powarz`,
+    title: `${project.name} — Fleet Week`,
     description: project.tagline,
   };
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — Powarz",
+  title: "About — Fleet Week",
   description:
     "Ethan Lance — 20+ years building internet products across engineering and product leadership.",
 };

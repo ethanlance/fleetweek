@@ -26,7 +26,7 @@ Human override: Ethan can always write/merge directly — journal essays with
 **Layout (since 2026-07-26):** all content is per-project under
 `content/projects/<slug>/` — `project.json`, `digests/`, `journal/`,
 `fleet.json`, `telemetry/jobs.json`. The site fleet's own content lives under
-`content/projects/powarz/` (the site is Project #0). Member projects join by
+`content/projects/fleetweek/` (the site is Project #0, slug `fleetweek`). Member projects join by
 PR adding their own directory (see `/launch`).
 
 ### Project — `content/projects/<slug>/project.json`

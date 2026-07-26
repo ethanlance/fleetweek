@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getJournalPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Journal — Powarz",
+  title: "Journal — Fleet Week",
   description:
     "Essays and the build log — partly written by the fleet, always reviewed.",
 };

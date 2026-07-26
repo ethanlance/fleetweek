@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AskForm } from "./ask-form";
 
 export const metadata: Metadata = {
-  title: "Ask — Powarz",
+  title: "Ask — Fleet Week",
   description:
     "Interrogate the Docent about Ethan Lance's work. Grounded in the site corpus, cites its sources.",
 };
