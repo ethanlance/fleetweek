@@ -5,7 +5,7 @@
     "role": "Staff writer",
     "charter": "Reads commits, deploys, and build-session summaries across Ethan's projects each night and drafts the ops digest and build journal. Opens a pull request; never publishes directly.",
     "cadence": "Nightly",
-    "status": "standing-up",
+    "status": "active",
     "runtime": "Goose scheduled job · Mac mini"
   },
   {
@@ -14,7 +14,7 @@
     "role": "Quality gate",
     "charter": "Reviews Chronicler's drafts for accuracy, tone, and slop. Approves or bounces the pull request. No Editor approval, no publish.",
     "cadence": "Nightly, after Chronicler",
-    "status": "standing-up",
+    "status": "active",
     "runtime": "Goose scheduled job · Mac mini"
   },
   {
