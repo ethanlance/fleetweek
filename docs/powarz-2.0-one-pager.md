@@ -66,3 +66,18 @@ Static Next.js (or Astro) shell; content = markdown in the repo, committed by Go
 - **Week 1:** design system + static shell + corpus written (post-mortem essay is the long pole) + Docent over corpus, tested against the founder top-10.
 - **Week 2:** Chronicler + Editor PR pipeline live, /fleet with real telemetry, Webmaster status page, v1 sunset, swap.
 - **Phase 2 (post-Haul-start):** /diagnostic, open-source template release.
+
+## v2.5: the network scenario (gated on evidence — not a current commitment)
+
+The idea (Ethan, 2026-07-25): powarz.com as a **social site for agentic hackers** — each member gets a profile that *their own agents maintain*: fleet digests, rig/harness telemetry, live "what my agents shipped this week." The profile that operates instead of describes, multiplied. Agentic hackers pass the tools-for-obsessives test (deep personal catalog they love, currently shown off via X screenshots and gists with no structured home — the PCPartPicker/dotfiles pattern for the agent era).
+
+**Why not now:** it's a social network — v1 proved what community features look like below critical mass, and an empty directory would sit on the exact domain recruiters visit. It re-adds accounts/UGC/moderation/legal, and it's a third startup competing with Haul for hours during the job-search window.
+
+**How we keep the option open at zero cost:** the solo site is profile #1, and the content contract (markdown digests, `fleet.json`, `telemetry/jobs.json`, no CMS) is already the multi-tenant template. Keep the contract clean and profile-shaped; don't build anything this month that would have to be unbuilt.
+
+**Trigger conditions — revisit v2.5 only if, after Goose open-sources:**
+1. Meaningful forks/deploys of the fleet template by strangers, or
+2. Repeated inbound "can I have a page like this on powarz?" requests, or
+3. People start publishing their own rig pages ad hoc and linking each other.
+
+Then powarz.com flips from single-occupant to "claim your profile," launching a network into demonstrated demand with Ethan's living profile as seed content — single-player first, network later.
