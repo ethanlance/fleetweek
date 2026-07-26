@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# powarz.com — a site with no webmaster
 
-## Getting Started
+powarz.com is maintained by [Goose](https://github.com/ethanlance/goose), a
+fleet of AI agents directed by Ethan Lance. Agents draft the content, review
+each other's work via pull requests, and watch the site's health. The
+maintenance is the demo.
 
-First, run the development server:
+**Tagline:** software gives you superpowers.
+
+## How it works
+
+- **No CMS.** Content is markdown in `content/`, committed by Goose jobs via
+  reviewable PRs (Chronicler drafts → Editor approves → merge deploys).
+- **No database, no auth, no user content.** Static Next.js; one serverless
+  endpoint (`/api/ask`, the Docent).
+- **Public telemetry.** `/fleet` shows each agent's charter, run history, and
+  the site's real monthly cost, read from `content/telemetry/jobs.json`.
+
+The full contract between Goose and this repo — file formats, job charters,
+publish pipeline, kill criteria — is in
+[`docs/GOOSE-INTEGRATION.md`](docs/GOOSE-INTEGRATION.md).
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build (static + /api/ask)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/            # Ops Room (/), /fleet, /journal, /ask, /about
+components/     # Shared UI
+content/        # The fleet writes here: digests/, journal/, fleet.json, telemetry/
+docs/           # GOOSE-INTEGRATION.md — the agent contract
+lib/content.ts  # Markdown/JSON loaders
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel, same project as the previous powarz.com so the domain swap is atomic.
+The v1 sunset checklist lives in the Powarz 2.0 one-pager.

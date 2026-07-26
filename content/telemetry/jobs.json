@@ -1,0 +1,12 @@
+{
+  "updatedAt": "2026-07-25T00:00:00Z",
+  "monthlyCostUsd": null,
+  "runs": [
+    {
+      "job": "webmaster",
+      "startedAt": "2026-07-25T07:00:00Z",
+      "status": "ok",
+      "note": "Seed entry — real telemetry lands when Goose jobs are wired (see docs/GOOSE-INTEGRATION.md)"
+    }
+  ]
+}

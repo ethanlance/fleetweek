@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0c0e;
+  --surface: #111317;
+  --border: #22252b;
+  --foreground: #e8eaed;
+  --muted: #9aa0a8;
+  --faint: #5c626b;
+  --accent: #34d399;
+  --accent-dim: #34d39922;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border-subtle: var(--border);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* Rendered markdown (digests, journal) */
+.prose-powarz {
+  line-height: 1.75;
+}
+.prose-powarz h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  color: var(--foreground);
+}
+.prose-powarz h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--foreground);
+}
+.prose-powarz p {
+  margin: 0.75rem 0;
+  color: var(--muted);
+}
+.prose-powarz strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.prose-powarz a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent-dim);
+}
+.prose-powarz a:hover {
+  text-decoration-color: var(--accent);
+}
+.prose-powarz ul,
+.prose-powarz ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  color: var(--muted);
+}
+.prose-powarz ul {
+  list-style: disc;
+}
+.prose-powarz ol {
+  list-style: decimal;
+}
+.prose-powarz li {
+  margin: 0.375rem 0;
+}
+.prose-powarz code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.125rem 0.375rem;
+}
+.prose-powarz pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.prose-powarz pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.prose-powarz blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--muted);
+  font-style: italic;
+}
+.prose-powarz hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
 }

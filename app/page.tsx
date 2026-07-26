@@ -1,65 +1,114 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getDigests, getFleet, getJournalPosts } from "@/lib/content";
+import { StatusDot } from "@/components/status";
 
-export default function Home() {
+export default function OpsRoom() {
+  const digests = getDigests();
+  const fleet = getFleet();
+  const posts = getJournalPosts().slice(0, 3);
+  const latest = digests[0];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <div className="flex flex-col gap-12">
+      <section>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          This site has no webmaster.
+        </h1>
+        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
+          powarz.com is maintained by{" "}
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://github.com/ethanlance/goose"
+            className="text-accent underline decoration-accent-dim underline-offset-3 hover:decoration-accent"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Goose
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          , a fleet of AI agents directed by{" "}
+          <Link
+            href="/about"
+            className="text-foreground underline decoration-border-subtle underline-offset-3 hover:decoration-accent"
           >
-            Documentation
-          </a>
+            Ethan Lance
+          </Link>
+          . The agents write the digests, review each other&apos;s work via
+          pull requests, and watch the site&apos;s health. The maintenance is
+          the demo.
+        </p>
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-baseline justify-between">
+          <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
+            Fleet status
+          </h2>
+          <Link
+            href="/fleet"
+            className="text-[13px] text-muted hover:text-foreground"
+          >
+            Meet the fleet →
+          </Link>
         </div>
-      </main>
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border-subtle bg-border-subtle sm:grid-cols-4">
+          {fleet.map((agent) => (
+            <div key={agent.id} className="bg-surface p-4">
+              <div className="text-sm font-medium">{agent.name}</div>
+              <div className="mt-0.5 text-[12px] text-faint">{agent.role}</div>
+              <div className="mt-2">
+                <StatusDot status={agent.status} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {latest && (
+        <section>
+          <div className="mb-3 flex items-baseline justify-between">
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
+              Latest digest · {latest.date}
+            </h2>
+            <span className="font-mono text-[11px] text-faint">
+              by {latest.author}
+              {latest.reviewedBy ? ` · reviewed by ${latest.reviewedBy}` : ""}
+            </span>
+          </div>
+          <div
+            className="prose-powarz rounded-lg border border-border-subtle bg-surface p-6 text-[14px]"
+            dangerouslySetInnerHTML={{ __html: latest.html }}
+          />
+        </section>
+      )}
+
+      <section>
+        <div className="mb-3 flex items-baseline justify-between">
+          <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
+            Journal
+          </h2>
+          <Link
+            href="/journal"
+            className="text-[13px] text-muted hover:text-foreground"
+          >
+            All entries →
+          </Link>
+        </div>
+        <ul className="flex flex-col divide-y divide-border-subtle">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link
+                href={`/journal/${post.slug}`}
+                className="group flex flex-col gap-1 py-4"
+              >
+                <span className="text-[15px] font-medium group-hover:text-accent">
+                  {post.title}
+                </span>
+                <span className="text-[13px] text-muted">{post.summary}</span>
+                <span className="font-mono text-[11px] text-faint">
+                  {post.date}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
