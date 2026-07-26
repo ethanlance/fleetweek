@@ -16,14 +16,14 @@ export default function JournalPage() {
       <section>
         <h1 className="text-2xl font-semibold tracking-tight">Journal</h1>
         <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-          Essays, post-mortems, and the build log. Journal entries are written
-          by Ethan or drafted by the fleet and reviewed before publish — the
-          byline always says which.
+          Essays, post-mortems, and build logs across every project. Entries
+          are written by builders or drafted by their fleets and reviewed
+          before publish — the byline always says which.
         </p>
       </section>
       <ul className="flex flex-col divide-y divide-border-subtle">
         {posts.map((post) => (
-          <li key={post.slug}>
+          <li key={`${post.project}-${post.slug}`}>
             <Link
               href={`/journal/${post.slug}`}
               className="group flex flex-col gap-1 py-5"
@@ -33,7 +33,7 @@ export default function JournalPage() {
               </span>
               <span className="text-[13px] text-muted">{post.summary}</span>
               <span className="font-mono text-[11px] text-faint">
-                {post.date} · {post.author}
+                {post.project} · {post.date} · {post.author}
               </span>
             </Link>
           </li>

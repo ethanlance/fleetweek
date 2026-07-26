@@ -23,7 +23,18 @@ Human override: Ethan can always write/merge directly — journal essays with
 
 ## File contracts
 
-### Digests — `content/digests/YYYY-MM-DD.md`
+**Layout (since 2026-07-26):** all content is per-project under
+`content/projects/<slug>/` — `project.json`, `digests/`, `journal/`,
+`fleet.json`, `telemetry/jobs.json`. The site fleet's own content lives under
+`content/projects/powarz/` (the site is Project #0). Member projects join by
+PR adding their own directory (see `/launch`).
+
+### Project — `content/projects/<slug>/project.json`
+
+`name`, `tagline`, `status` (`building` | `live` | `pre-launch` | `sunset`),
+`started`, `builder`, `links` (label → URL map).
+
+### Digests — `content/projects/<slug>/digests/YYYY-MM-DD.md`
 
 ```markdown
 ---
@@ -40,7 +51,7 @@ Source material Chronicler reads (via Goose's local tools): git logs across
 logs. Private repos/projects are summarized only at the level Ethan has
 whitelisted per repo (see Goose-side config).
 
-### Journal — `content/journal/YYYY-MM-DD-slug.md`
+### Journal — `content/projects/<slug>/journal/YYYY-MM-DD-slug.md`
 
 ```markdown
 ---
@@ -55,13 +66,13 @@ Body in markdown.
 Fleet-drafted journal entries follow the same PR pipeline; the byline must
 truthfully name the author.
 
-### Fleet roster — `content/fleet.json`
+### Fleet roster — `content/projects/<slug>/fleet.json`
 
 Array of agents: `id`, `name`, `role`, `charter`, `cadence`,
 `status` (`active` | `standing-up` | `paused`), `runtime`. Updated by humans
 (rarely) — this is org design, not telemetry.
 
-### Telemetry — `content/telemetry/jobs.json`
+### Telemetry — `content/projects/<slug>/telemetry/jobs.json`
 
 Written by the **Webmaster** job after each run (committed directly to `main`
 — telemetry is data, not prose, and needs no editorial gate):

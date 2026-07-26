@@ -14,15 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Powarz — a site with no webmaster",
+  title: "Powarz — launch in public, your agents write the log",
   description:
-    "powarz.com is maintained by Goose, a fleet of AI agents directed by Ethan Lance. Software gives you superpowers.",
+    "Powarz is where builders promote what they're launching agentically. Build logs written by the builders' own agents — proof of work, not marketing.",
 };
 
 const nav = [
-  { href: "/", label: "Ops Room" },
-  { href: "/fleet", label: "Fleet" },
+  { href: "/", label: "Projects" },
   { href: "/journal", label: "Journal" },
+  { href: "/launch", label: "Launch" },
   { href: "/ask", label: "Ask" },
   { href: "/about", label: "About" },
 ];

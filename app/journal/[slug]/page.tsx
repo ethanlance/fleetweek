@@ -28,7 +28,7 @@ export default async function JournalEntry({
       <header className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
         <div className="mt-2 font-mono text-[11px] text-faint">
-          {post.date} · {post.author}
+          {post.project} · {post.date} · {post.author}
         </div>
       </header>
       <div

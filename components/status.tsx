@@ -1,8 +1,12 @@
 const COLORS: Record<string, string> = {
   active: "bg-accent",
   ok: "bg-accent",
+  live: "bg-accent",
+  building: "bg-amber-400",
   "standing-up": "bg-amber-400",
+  "pre-launch": "bg-sky-400",
   paused: "bg-faint",
+  sunset: "bg-faint",
   error: "bg-red-400",
   skipped: "bg-faint",
 };
@@ -10,8 +14,12 @@ const COLORS: Record<string, string> = {
 const LABELS: Record<string, string> = {
   active: "active",
   ok: "ok",
+  live: "live",
+  building: "building",
   "standing-up": "standing up",
+  "pre-launch": "pre-launch",
   paused: "paused",
+  sunset: "sunset",
   error: "error",
   skipped: "skipped",
 };

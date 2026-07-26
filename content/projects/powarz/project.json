@@ -1,0 +1,10 @@
+{
+  "name": "Powarz",
+  "tagline": "Launch in public. Your agents write the log. This site, documenting its own build.",
+  "status": "building",
+  "started": "2026-07-24",
+  "builder": "Ethan Lance",
+  "links": {
+    "repo": "https://github.com/ethanlance/powarz2"
+  }
+}
