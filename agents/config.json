@@ -6,7 +6,7 @@
   "chronicler": {
     "project_slug": "fleetweek",
     "model": "claude-sonnet-5",
-    "bot_author": "github-actions[bot]",
+    "bot_author": "app/github-actions",
     "source_repos": [
       "ethanlance/fleetweek",
       "ethanlance/powarz",
