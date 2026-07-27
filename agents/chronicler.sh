@@ -27,6 +27,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 FLEET_HOME="${FLEET_HOME:-$HOME/.fleetweek}"
 CONFIG_FILE="${FLEET_CONFIG:-$FLEET_HOME/config.json}"
+# Fall back to the committed defaults when there is no personal config
+# (this is the normal case on a CI runner).
+[ -f "$CONFIG_FILE" ] || CONFIG_FILE="$SCRIPT_DIR/config.json"
 LOG_DIR="$FLEET_HOME/logs"
 mkdir -p "$LOG_DIR"
 
@@ -60,7 +63,7 @@ done < <(jq -r '.chronicler.source_repos[]? // empty' "$PROFILE_CONFIG")
 
 TODAY=$(date '+%Y-%m-%d')
 DIGEST_REL="content/projects/$SLUG/digests/$TODAY.md"
-PR_BRANCH="goose/digest-$TODAY"
+PR_BRANCH="fleet/digest-$TODAY"
 
 cd "$SITE_REPO"
 git checkout -q "$BRANCH" && git pull -q --rebase origin "$BRANCH"
@@ -71,12 +74,24 @@ if [ -f "$DIGEST_REL" ]; then
 fi
 
 # ── Gather the last 24h of real activity ─────────────────────────────────────
+# Sources may be local checkouts (developer machine) or "owner/repo" strings
+# read through the GitHub API (CI runners, where no checkout exists).
 ACTIVITY=""
+SINCE=$(date -u -v-24H '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ')
 for repo in "${SOURCE_REPOS[@]}"; do
-  [ -d "$repo/.git" ] || continue
-  name=$(basename "$repo")
-  commits=$(git -C "$repo" log --since="24 hours ago" --no-merges \
-    --pretty=format:'- %s' 2>/dev/null | head -30)
+  commits=""
+  if [ -d "$repo/.git" ]; then
+    name=$(basename "$repo")
+    commits=$(git -C "$repo" log --since="24 hours ago" --no-merges \
+      --pretty=format:'- %s' 2>/dev/null | head -30)
+  elif [[ "$repo" == */* ]]; then
+    name="$repo"
+    commits=$(gh api "repos/$repo/commits?since=$SINCE&per_page=30" \
+      --jq '.[] | select(.commit.message | startswith("Merge ") | not) | "- " + (.commit.message | split("\n")[0])' \
+      2>/dev/null || true)
+  else
+    continue
+  fi
   if [ -n "$commits" ]; then
     ACTIVITY+="## Repo: $name"$'\n'"$commits"$'\n\n'
   fi
@@ -136,8 +151,12 @@ $BODY
 EOF
 
 git add "$DIGEST_REL"
-git -c user.name="Goose Chronicler" -c user.email="goosebadfriend@gmail.com" \
-  commit -qm "digest: $TODAY (drafted by Chronicler)"
+# Identity comes from git config when set (CI), with a local default otherwise.
+if [ -z "$(git config user.email || true)" ]; then
+  git config user.name "Fleet Chronicler"
+  git config user.email "fleet@fleetweek.dev"
+fi
+git commit -qm "digest: $TODAY (drafted by Chronicler)"
 if ! git push -qu origin "$PR_BRANCH" 2>>"$LOG_FILE"; then
   log "push failed"; git checkout -q "$BRANCH"; exit 1
 fi

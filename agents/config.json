@@ -1,0 +1,16 @@
+{
+  "display_name": "fleetweek.dev",
+  "site_url": "https://fleetweek.dev",
+  "branch": "main",
+  "telemetry_file": "content/projects/fleetweek/telemetry/jobs.json",
+  "chronicler": {
+    "project_slug": "fleetweek",
+    "model": "claude-sonnet-5",
+    "bot_author": "github-actions[bot]",
+    "source_repos": [
+      "ethanlance/fleetweek",
+      "ethanlance/powarz",
+      "ethanlance/badfriend"
+    ]
+  }
+}

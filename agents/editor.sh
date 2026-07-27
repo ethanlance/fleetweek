@@ -17,6 +17,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 FLEET_HOME="${FLEET_HOME:-$HOME/.fleetweek}"
 CONFIG_FILE="${FLEET_CONFIG:-$FLEET_HOME/config.json}"
+# Fall back to the committed defaults when there is no personal config
+# (this is the normal case on a CI runner).
+[ -f "$CONFIG_FILE" ] || CONFIG_FILE="$SCRIPT_DIR/config.json"
 LOG_DIR="$FLEET_HOME/logs"
 mkdir -p "$LOG_DIR"
 
@@ -40,8 +43,18 @@ MODEL=$(jq -r '.chronicler.model // "claude-sonnet-5"' "$PROFILE_CONFIG")
 
 cd "$SITE_REPO"
 
-PRS=$(gh pr list --json number,headRefName --jq \
-  '.[] | select(.headRefName | startswith("goose/digest-")) | .number' 2>>"$LOG_FILE")
+# SECURITY: match on AUTHOR as well as branch name. Branch names are
+# attacker-controlled on a public repo, so anyone could open a PR called
+# goose/digest-* and land their diff in the review prompt below.
+BOT_AUTHOR=$(jq -r '.chronicler.bot_author // ""' "$PROFILE_CONFIG")
+if [ -z "$BOT_AUTHOR" ]; then
+  log "chronicler.bot_author not configured; refusing to auto-review PRs"
+  exit 0
+fi
+
+PRS=$(gh pr list --json number,headRefName,author --jq \
+  --arg author "$BOT_AUTHOR" \
+  '.[] | select(.headRefName | startswith("fleet/digest-")) | select(.author.login == $author) | .number' 2>>"$LOG_FILE")
 
 if [ -z "$PRS" ]; then
   log "no Chronicler PRs awaiting review"
@@ -101,8 +114,11 @@ $DIFF" "$MODEL" 3)
     if [ -n "$FILE" ] && [ -f "$FILE" ]; then
       sed -i '' 's/^reviewed_by: null$/reviewed_by: editor/' "$FILE"
       git add "$FILE"
-      git -c user.name="Goose Editor" -c user.email="goosebadfriend@gmail.com" \
-        commit -qm "editor: approved (reviewed_by stamped)"
+      if [ -z "$(git config user.email || true)" ]; then
+        git config user.name "Fleet Editor"
+        git config user.email "fleet@fleetweek.dev"
+      fi
+      git commit -qm "editor: approved (reviewed_by stamped)"
       git push -q 2>>"$LOG_FILE"
     fi
     git checkout -q "$BRANCH"

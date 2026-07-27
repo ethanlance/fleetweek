@@ -42,6 +42,35 @@ call_ollama() {
   echo "$text"
 }
 
+# call_anthropic_api "prompt" [model]
+# Direct Messages API call. Used when the `claude` CLI is unavailable (CI
+# runners), so the same agents run locally and in GitHub Actions unchanged.
+call_anthropic_api() {
+  local prompt="$1"
+  local model="${2:-claude-sonnet-5}"
+  [ -n "${ANTHROPIC_API_KEY:-}" ] || { echo "[llm-call] ERROR: ANTHROPIC_API_KEY unset" >&2; return 1; }
+
+  local body
+  body=$(jq -n --arg m "$model" --arg p "$prompt" \
+    '{model: $m, max_tokens: 1500, messages: [{role: "user", content: $p}]}')
+
+  local response
+  response=$(curl -sS https://api.anthropic.com/v1/messages \
+    --max-time 180 \
+    -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d "$body" 2>/dev/null)
+
+  local text
+  text=$(echo "$response" | jq -r '[.content[]? | select(.type=="text") | .text] | join("\n")' 2>/dev/null)
+  if [ -z "$text" ] || [ "$text" = "null" ]; then
+    echo "[llm-call] ERROR: empty response from API: $(echo "$response" | head -c 200)" >&2
+    return 1
+  fi
+  echo "$text"
+}
+
 call_claude() {
   local prompt="$1"
   local model="${2:-claude-sonnet-4-20250514}"
@@ -50,6 +79,11 @@ call_claude() {
   # Ensure claude is in PATH (launchd strips ~/.local/bin via path_helper)
   if ! command -v claude &>/dev/null; then
     export PATH="$HOME/.local/bin:$PATH"
+  fi
+  # No CLI (e.g. a CI runner)? Use the API directly.
+  if ! command -v claude &>/dev/null; then
+    call_anthropic_api "$prompt" "$model"
+    return $?
   fi
 
   # Write prompt to temp file to avoid stdin size limits.

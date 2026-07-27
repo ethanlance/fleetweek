@@ -23,6 +23,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 FLEET_HOME="${FLEET_HOME:-$HOME/.fleetweek}"
 CONFIG_FILE="${FLEET_CONFIG:-$FLEET_HOME/config.json}"
+# Fall back to the committed defaults when there is no personal config
+# (this is the normal case on a CI runner).
+[ -f "$CONFIG_FILE" ] || CONFIG_FILE="$SCRIPT_DIR/config.json"
 LOG_DIR="$FLEET_HOME/logs"
 mkdir -p "$LOG_DIR"
 

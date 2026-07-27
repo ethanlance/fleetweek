@@ -7,9 +7,9 @@ in this repo's history.
 
 | Agent | Schedule | What it does |
 |---|---|---|
-| `chronicler.sh` | 06:45 daily | Reads the last 24h of commits across the configured source repos plus site telemetry, drafts the fleet digest, opens a `goose/digest-DATE` pull request. Never pushes to `main`. Skips quiet days rather than inventing activity. |
-| `editor.sh` | 07:05 daily | Reviews Chronicler's PR: authorship check, path allowlist, secret scan, the anti-slop lexicon in `lib/slop-filter.sh`, then an LLM rubric. Approves and merges (which deploys), or comments and closes. Never rewrites silently. |
-| `webmaster.sh` | 07:30 daily | Health checks (repo sync, production build, site reachability) published to `content/projects/<slug>/telemetry/jobs.json`. Publishes failures as readily as successes. |
+| `chronicler.sh` | 06:45 UTC daily | Reads the last 24h of commits across the configured source repos (local checkouts or `owner/repo` via the GitHub API) plus site telemetry, drafts the fleet digest, opens a `fleet/digest-DATE` pull request. Never pushes to `main`. Skips quiet days rather than inventing activity. |
+| `editor.sh` | 07:05 UTC daily | Reviews Chronicler's PR: authorship check, path allowlist, secret scan, the anti-slop lexicon in `lib/slop-filter.sh`, then an LLM rubric. Approves and merges (which deploys), or comments and closes. Never rewrites silently. |
+| `webmaster.sh` | 07:30 UTC daily | Health checks (repo sync, production build, site reachability) published to `content/projects/<slug>/telemetry/jobs.json`. Publishes failures as readily as successes. |
 
 ## Configuration
 
@@ -40,10 +40,24 @@ Logs land in `~/.fleetweek/logs/`.
 
 ## Scheduling
 
-Any scheduler works. On macOS these run as launchd agents labelled
-`dev.fleetweek.*`; a crontab or a CI schedule would do equally well. Run any of
-them by hand at any time — they are idempotent, and Chronicler will decline to
-draft a second digest for a day that already has one.
+These run on **GitHub Actions** — no always-on machine required. The workflows
+are in `.github/workflows/`, on a daily UTC cron, each also runnable by hand
+via *Run workflow*. Every run's logs are public in the Actions tab, which makes
+the fleet's behaviour auditable without trusting a summary of it.
+
+Two repository secrets:
+
+| Secret | Needed for |
+|---|---|
+| `ANTHROPIC_API_KEY` | Chronicler drafting and Editor's rubric review |
+| `FLEET_REPOS_TOKEN` | *Optional.* A fine-grained read token if Chronicler should see commits in repos other than this one. Without it, the built-in `GITHUB_TOKEN` covers this repo only. |
+
+The scripts are plain bash and run anywhere: a cron job, another CI provider,
+or a laptop. Locally they use the `claude` CLI if present and the Anthropic API
+otherwise, and read `~/.fleetweek/config.json` in preference to the committed
+`agents/config.json`. Run any of them by hand at any time — they are
+idempotent, and Chronicler declines to draft a second digest for a day that
+already has one.
 
 ## Design notes
 
