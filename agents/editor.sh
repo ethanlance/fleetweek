@@ -52,9 +52,11 @@ if [ -z "$BOT_AUTHOR" ]; then
   exit 0
 fi
 
-PRS=$(gh pr list --json number,headRefName,author --jq \
-  --arg author "$BOT_AUTHOR" \
-  '.[] | select(.headRefName | startswith("fleet/digest-")) | select(.author.login == $author) | .number' 2>>"$LOG_FILE")
+# gh's built-in --jq does not accept --arg, so the author is interpolated.
+# BOT_AUTHOR comes from config, not from any PR field, so it is not
+# attacker-controlled; it is quoted to keep the filter well-formed regardless.
+PRS=$(gh pr list --json number,headRefName,author \
+  --jq ".[] | select(.headRefName | startswith(\"fleet/digest-\")) | select(.author.login == \"$BOT_AUTHOR\") | .number" 2>>"$LOG_FILE")
 
 if [ -z "$PRS" ]; then
   log "no Chronicler PRs awaiting review"
