@@ -25,10 +25,10 @@ export default function AboutPage() {
           community, and giving people superpowers with software. This site is
           a working example — it&apos;s maintained by{" "}
           <a
-            href="https://github.com/ethanlance/goose"
+            href="https://github.com/ethanlance/fleetweek"
             className="text-accent underline decoration-accent-dim underline-offset-3 hover:decoration-accent"
           >
-            Goose
+            a fleet of scheduled agents
           </a>
           , an agent platform I built and direct.
         </p>

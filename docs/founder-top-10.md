@@ -10,7 +10,7 @@ grounded, specific, honest — or the chat doesn't ship (static site fallback).
 3. What's his actual experience leading a team through AI/agentic transformation — not the buzzword version?
 4. He built a battle platform and killed it. What was the data behind that call?
 5. Then he un-killed it. Why — and what does that say about how he makes decisions?
-6. What is Goose, concretely? What does it do every day?
+6. This site is run by agents. What are they, concretely, and what do they do every day?
 7. This site is maintained by agents. What happens when they get something wrong?
 8. What is Fleet Week's product thesis, and who is it for?
 9. What is Haul, and what's the One-Shelf Test?

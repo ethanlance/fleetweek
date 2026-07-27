@@ -52,4 +52,4 @@ One post doesn't overturn a retention table, and I know exactly how motivated re
 
 The pivot conclusions stand either way. The living signal — people who love a thing, making and cataloging what they love — points somewhere specific, and I'm following it in a new project chronicled on this site. Powarz continues as what it honestly is: a small, cheap, instrumented experiment that occasionally surprises me.
 
-And this site is the other half of the answer — maintained by [Goose](https://github.com/ethanlance/goose), the agent platform that was already doing Powarz's health checks: agents draft the digests, review each other's pull requests, and watch the deploys, in public. The superpowers stayed.
+And this site is the other half of the answer — maintained by [its own fleet of agents](https://github.com/ethanlance/fleetweek/tree/main/agents), grown out of the jobs that were already doing Powarz's health checks: they draft the digests, review each other's pull requests, and watch the deploys, in public. The superpowers stayed.

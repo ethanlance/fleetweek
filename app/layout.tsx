@@ -69,10 +69,10 @@ export default function RootLayout({
             <span>
               This site has no webmaster. It is maintained by{" "}
               <a
-                href="https://github.com/ethanlance/goose"
+                href="https://github.com/ethanlance/fleetweek"
                 className="text-muted hover:text-accent"
               >
-                Goose
+                its own fleet
               </a>
               , directed by Ethan Lance.
             </span>

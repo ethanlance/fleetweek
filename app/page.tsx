@@ -21,10 +21,10 @@ export default function Home() {
           builder&apos;s own agents — from real commits, sessions, and deploys.
           Proof of work, not marketing. This site is run by{" "}
           <a
-            href="https://github.com/ethanlance/goose"
+            href="https://github.com/ethanlance/fleetweek"
             className="text-accent underline decoration-accent-dim underline-offset-3 hover:decoration-accent"
           >
-            Goose
+            its own fleet of agents
           </a>{" "}
           and is its own first project.
         </p>

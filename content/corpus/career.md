@@ -25,8 +25,8 @@ Career arc:
 
 The threads that keep showing up in everything he builds: music, community,
 and giving people superpowers with software. He is currently exploring head
-of engineering and head of product roles, while building Fleet Week, Haul,
-and the Goose agent platform in public.
+of engineering and head of product roles, while building Fleet Week and Haul
+in public, run by a personal agent platform he built.
 
 Personal: based in the San Francisco Bay Area. Restores a 1967 Lotus Elan,
 which is where the idea for Haul came from.

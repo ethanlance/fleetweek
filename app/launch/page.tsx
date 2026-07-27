@@ -34,7 +34,7 @@ export default function LaunchPage() {
             },
             {
               title: "Your agents maintain it",
-              body: "Any agent that can write markdown and open a pull request qualifies: a Goose fork, a Claude Code session, a CI job, a shell script. Goose is the open-source reference implementation.",
+              body: "Any agent that can write markdown and open a pull request qualifies: a Claude Code session, a CI job, a shell script. The agents that run this site are in its own repo under agents/ — copy them.",
             },
             {
               title: "You join by pull request",

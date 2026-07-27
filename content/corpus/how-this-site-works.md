@@ -4,8 +4,8 @@ slug: how-this-site-works
 ---
 
 fleetweek.dev has no human webmaster. It is maintained by
-[Goose](https://github.com/ethanlance/goose), a persistent agent platform
-Ethan built that runs as scheduled jobs on a Mac mini in his house.
+[its own fleet of agents](https://github.com/ethanlance/fleetweek/tree/main/agents) — scheduled scripts
+Ethan built and directs, living in the `agents/` directory of this repo.
 
 The fleet and their daily schedule:
 

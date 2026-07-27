@@ -6,7 +6,7 @@
     "charter": "Reads commits, deploys, and build-session summaries across Ethan's projects each night and drafts the ops digest and build journal. Opens a pull request; never publishes directly.",
     "cadence": "Nightly",
     "status": "active",
-    "runtime": "Goose scheduled job · Mac mini"
+    "runtime": "scheduled job \u00b7 agents/ in this repo"
   },
   {
     "id": "editor",
@@ -15,7 +15,7 @@
     "charter": "Reviews Chronicler's drafts for accuracy, tone, and slop. Approves or bounces the pull request. No Editor approval, no publish.",
     "cadence": "Nightly, after Chronicler",
     "status": "active",
-    "runtime": "Goose scheduled job · Mac mini"
+    "runtime": "scheduled job \u00b7 agents/ in this repo"
   },
   {
     "id": "docent",
@@ -24,15 +24,15 @@
     "charter": "Answers visitors' questions about Ethan's work, grounded strictly in the site corpus. Cites sources. Says \"I don't know\" cleanly.",
     "cadence": "On demand",
     "status": "standing-up",
-    "runtime": "Serverless · Vercel"
+    "runtime": "Serverless \u00b7 Vercel"
   },
   {
     "id": "webmaster",
     "name": "Webmaster",
     "role": "Site reliability",
-    "charter": "Daily health checks: uptime, deploys, Lighthouse, broken links. Publishes its own status reports. Previously ran daily health checks on Powarz v1 for months.",
+    "charter": "Daily health checks: uptime, deploys, Lighthouse, broken links. Publishes its own status reports. Publishes failures as readily as successes.",
     "cadence": "Daily",
     "status": "active",
-    "runtime": "Goose scheduled job · Mac mini"
+    "runtime": "scheduled job \u00b7 agents/ in this repo"
   }
 ]

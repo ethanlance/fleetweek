@@ -1,7 +1,7 @@
-# Goose Integration Contract
+# Agent Contract
 
-How the Goose fleet maintains this site. Goose lives at
-[github.com/ethanlance/goose](https://github.com/ethanlance/goose) and runs as
+How the the fleet fleet maintains this site. the fleet lives at
+the `agents/` directory of this repo and runs as
 launchd-scheduled jobs on a Mac mini. This document is the contract between
 those jobs and this repo — file formats, the publish pipeline, and each job's
 charter.
@@ -46,10 +46,10 @@ reviewed_by: editor        # editor | null (null only for human-authored)
 sentences, with links to commits/PRs/deploys where relevant.
 ```
 
-Source material Chronicler reads (via Goose's local tools): git logs across
-`~/Code/*` repos Ethan designates, Vercel deploy events, and Goose's own job
+Source material Chronicler reads: git logs across
+`~/Code/*` repos Ethan designates, Vercel deploy events, and the fleet's own job
 logs. Private repos/projects are summarized only at the level Ethan has
-whitelisted per repo (see Goose-side config).
+whitelisted per repo (see agent-side config).
 
 ### Journal — `content/projects/<slug>/journal/YYYY-MM-DD-slug.md`
 
@@ -87,10 +87,10 @@ Written by the **Webmaster** job after each run (committed directly to `main`
 }
 ```
 
-`monthlyCostUsd` aggregates what Goose can meter (API spend per job) — publish
+`monthlyCostUsd` aggregates what the fleet can meter (API spend per job) — publish
 honestly or publish `null`, never estimate silently.
 
-## Job charters (Goose side)
+## Job charters (the fleet side)
 
 | Job | Cadence | Does | Must not |
 |---|---|---|---|
@@ -99,7 +99,7 @@ honestly or publish `null`, never estimate silently.
 | `webmaster` | daily | Uptime, deploy status, Lighthouse, broken links → update `jobs.json`; open an issue (or Discord alert) on failures | Commit prose; fix content |
 | `docent` | on demand | Serverless (this repo, `/api/ask`): answer over `content/` + corpus with citations | Answer beyond the corpus; speculate about Ethan; discuss visitors' data |
 
-## Docent (in this repo, not a Goose job)
+## Docent (in this repo, not a the fleet job)
 
 - Implementation target: `/api/ask` answers over `content/corpus/*.md` +
   published journal/digests, cites sources by slug.
@@ -109,8 +109,7 @@ honestly or publish `null`, never estimate silently.
 
 ## Standing up a job
 
-Each job lives in the Goose repo (or its `_personal/` deployment dir) as a
-scheduled task with: the charter above as its prompt core, `gh` CLI access for
+Each job lives in `agents/` as a scheduled task with: the charter above as its prompt core, `gh` CLI access for
 PRs, and this file in its context. Add the job → flip its `status` to
 `"active"` in `content/fleet.json` in the same PR that first exercises it.
 
