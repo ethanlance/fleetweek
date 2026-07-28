@@ -2,7 +2,7 @@
 title: "The data said kill it. The site argued back."
 date: "2026-07-25"
 author: ethan
-summary: "I spent a year building an AI battle arena, one afternoon reading its production database, and one day watching my kill verdict get appealed."
+summary: "I spent a year building an AI battle arena, one afternoon reading its production database, and one day watching my kill verdict get appealed. Updated 27 July: the appeal failed, and the reason is the number I never thought to measure."
 ---
 
 For about a year, my domain powarz.com has hosted Powarz: a fan wiki and battle arena for fictional characters. You could browse hundreds of characters, forge original ones with AI portraits and lore, and pit any two against each other in AI-narrated battles. It had three battle modes, a points economy with ranks and titles, a suggestion-and-review wiki workflow, discussions, leaderboards, email digests, AI moderation, a Stripe-backed Pro tier, and the beginnings of a native iOS app — 61 Swift files deep.
@@ -53,3 +53,26 @@ One post doesn't overturn a retention table, and I know exactly how motivated re
 The pivot conclusions stand either way. The living signal — people who love a thing, making and cataloging what they love — points somewhere specific, and I'm following it in a new project chronicled on this site. Powarz continues as what it honestly is: a small, cheap, instrumented experiment that occasionally surprises me.
 
 And this site is the other half of the answer — maintained by [its own fleet of agents](https://github.com/ethanlance/fleetweek/tree/main/agents), grown out of the jobs that were already doing Powarz's health checks: they draft the digests, review each other's pull requests, and watch the deploys, in public. The superpowers stayed.
+
+---
+
+## Update — 27 July 2026: the stay of execution lasted two days
+
+I'm leaving everything above exactly as I wrote it, because the two days between writing it and writing this are the actual lesson.
+
+I commuted the sentence on the strength of one forum post. Then I had an independent audit run against the same production database — no narrative, no attachment, just the queries — and it found the number my own afternoon of SQL had never asked for. **Of the 50 non-owner users who ever did anything on Powarz, five came back on a second day, one was still active after a week, and none were active after thirty.** Not low. Zero, for the entire life of the product.
+
+The thread that won the reprieve never drew a single reply.
+
+I had measured abandonment *within* a session and never once measured whether anyone came back. That's the flaw in the essay above: every number in it describes what people did while they were there, and none of them describe whether they returned. I built the argument for a reprieve out of the only data I had bothered to collect.
+
+A few corrections to the record, now that the full audit is in:
+
+- **66 accounts**, not 62. **211 battles**, not 195. **Four** discussion threads, not three — still zero comments.
+- The flagship battle mode was abandoned **62%** of the time. The fast streamed mode I'd left hidden completed **100%** of the time, 9 for 9.
+- The two most commercially important pages in the product — the share link and the paywall — had **zero inbound links anywhere in the codebase**. Not underperforming. Unreachable.
+- And the one that stings, given what I wrote above about auditing your own paywall like an adversary: **production ran on Stripe test keys for the entire year.** Lifetime revenue wasn't $4.99 a month. It was **zero dollars**, and it could never have been anything else. I audited the narration claim and never checked whether the checkout behind it could take money at all.
+
+So Powarz v1 is closed. The database is archived, the images are pulled down, the repo is read-only, and [powarz.com](https://powarz.com/post-mortem) now serves its own post-mortem instead of the product.
+
+The honest summary of this entry is that I wrote a kill verdict, talked myself out of it inside 24 hours on one data point I wanted to believe, and needed someone with no stake in it to show me the column I hadn't looked at. Writing the kill criteria down in advance is not the hard part. Not negotiating with them is.
