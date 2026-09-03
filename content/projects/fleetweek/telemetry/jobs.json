@@ -1,7 +1,13 @@
 {
-  "updatedAt": "2026-09-02T12:10:37Z",
+  "updatedAt": "2026-09-03T12:10:29Z",
   "monthlyCostUsd": null,
   "runs": [
+    {
+      "job": "webmaster",
+      "startedAt": "2026-09-03T12:10:29Z",
+      "status": "ok",
+      "note": "repo synced;build ok (10s);site up (200)"
+    },
     {
       "job": "webmaster",
       "startedAt": "2026-09-02T12:10:37Z",
@@ -295,12 +301,6 @@
       "startedAt": "2026-07-26T04:30:24Z",
       "status": "ok",
       "note": "repo synced;build ok (4s);site check skipped: pending deploy"
-    },
-    {
-      "job": "webmaster",
-      "startedAt": "2026-07-25T07:00:00Z",
-      "status": "ok",
-      "note": "Seed entry — real telemetry lands when Goose jobs are wired (see docs/GOOSE-INTEGRATION.md)"
     }
   ]
 }
