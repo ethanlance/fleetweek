@@ -1,7 +1,13 @@
 {
-  "updatedAt": "2026-09-03T12:10:29Z",
+  "updatedAt": "2026-09-04T12:11:38Z",
   "monthlyCostUsd": null,
   "runs": [
+    {
+      "job": "webmaster",
+      "startedAt": "2026-09-04T12:11:38Z",
+      "status": "ok",
+      "note": "repo synced;build ok (11s);site up (200)"
+    },
     {
       "job": "webmaster",
       "startedAt": "2026-09-03T12:10:29Z",
@@ -295,12 +301,6 @@
       "startedAt": "2026-07-26T05:15:47Z",
       "status": "ok",
       "note": "repo synced;build ok (3s);site check skipped: pending deploy"
-    },
-    {
-      "job": "webmaster",
-      "startedAt": "2026-07-26T04:30:24Z",
-      "status": "ok",
-      "note": "repo synced;build ok (4s);site check skipped: pending deploy"
     }
   ]
 }
